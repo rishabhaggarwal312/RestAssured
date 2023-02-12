@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Apply Offer Test suite" verbose="1">
+    <test name="Apply Offer Test cases">
+        <classes>
+            <class name="com.rishabh.tests.ApplyCartOffersTest"></class>
+            <class name="com.rishabh.tests.CreateOffersTest"></class>
+        </classes>
+    </test>
+
+</suite>
