@@ -1,8 +1,9 @@
 # RestAssured
 RestAssured
 
-Prerequisites:
+Prerequisites before running the tests:
 Create cart offer and apply cart offer Services should be up an running
+
 Mock server should be up using the InitializerJson.json File present in this reporsitory
 
 How to run test case
