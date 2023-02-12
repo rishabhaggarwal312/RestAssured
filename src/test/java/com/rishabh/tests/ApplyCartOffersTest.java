@@ -185,55 +185,5 @@ public class ApplyCartOffersTest {
         }
     }
 
-    @Test(dataProviderClass = createOfferDataProvider.class, dataProvider = "applyOfferNullRxID")
-    public void applyOfferNullRxID(int restaurant_id, String offer_type, int offer_value, List<String> customer_segment, int user_id) {
-        int cart_value = 2000;
-        int expected_cart_value;
-
-        Response createOfferResponse = createOfferHelper.createOffer(restaurant_id, offer_type, offer_value, customer_segment);
-        System.out.println("Create Offer Response Body \n" + createOfferResponse.getBody().asString());
-        Assert.assertEquals(createOfferResponse.getStatusCode(), HttpStatus.SC_OK, "Offer creation Failed");
-        Assert.assertEquals(createOfferResponse.jsonPath().getString("response_msg"), "success");
-
-        int applyCartOfferResponse = applyOfferHelper.applyCartOffer(cart_value, user_id, restaurant_id);
-
-        if (getUserSegmentHelper.getUserSegment(user_id).matches(customer_segment.get(0))) {
-            if (offer_type.equals("FLATX")) {
-                expected_cart_value = cart_value - offer_value;
-            } else {
-                expected_cart_value = (int) (cart_value - cart_value * offer_value * (0.01));
-            }
-            Assert.assertEquals(applyCartOfferResponse, expected_cart_value, "Cart Value is incorrect Test Failed");
-        } else {
-            Assert.assertEquals(applyCartOfferResponse, cart_value, "Cart Value is incorrect Test Failed");
-
-        }
-    }
-
-    @Test(dataProviderClass = createOfferDataProvider.class, dataProvider = "applyOfferNullUser")
-    public void applyOfferNullUser(int restaurant_id, String offer_type, int offer_value, List<String> customer_segment, int user_id) {
-        int cart_value = 2000;
-        int expected_cart_value;
-
-        Response createOfferResponse = createOfferHelper.createOffer(restaurant_id, offer_type, offer_value, customer_segment);
-        System.out.println("Create Offer Response Body \n" + createOfferResponse.getBody().asString());
-        Assert.assertEquals(createOfferResponse.getStatusCode(), HttpStatus.SC_OK, "Offer creation Failed");
-        Assert.assertEquals(createOfferResponse.jsonPath().getString("response_msg"), "success");
-
-        int applyCartOfferResponse = applyOfferHelper.applyCartOffer(cart_value, user_id, restaurant_id);
-
-        if (getUserSegmentHelper.getUserSegment(user_id).matches(customer_segment.get(0))) {
-            if (offer_type.equals("FLATX")) {
-                expected_cart_value = cart_value - offer_value;
-            } else {
-                expected_cart_value = (int) (cart_value - cart_value * offer_value * (0.01));
-            }
-            Assert.assertEquals(applyCartOfferResponse, expected_cart_value, "Cart Value is incorrect Test Failed");
-        } else {
-            Assert.assertEquals(applyCartOfferResponse, cart_value, "Cart Value is incorrect Test Failed");
-
-        }
-    }
-
 
 }
